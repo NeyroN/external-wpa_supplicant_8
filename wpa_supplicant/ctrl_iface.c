@@ -4129,6 +4129,12 @@ static int p2p_ctrl_connect(struct wpa_supplicant *wpa_s, char *cmd,
 			return -1;
 	}
 
+#ifdef ANDROID_BCMDHD_VENDOR
+	/* set it to be GO for better compability with more dongles */
+	go_intent = 14;
+	wpa_printf(MSG_ERROR, "broadcom p2p force go_intent=%d", go_intent);
+#endif
+
 	pos2 = os_strstr(pos, " freq=");
 	if (pos2) {
 		pos2 += 6;
